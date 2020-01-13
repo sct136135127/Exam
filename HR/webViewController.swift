@@ -7,12 +7,26 @@
 //
 
 import UIKit
+import WebKit
 
-class webViewController: UIViewController {
-
+class webViewController: UIViewController,UIWebViewDelegate{
+    @IBOutlet weak var web: WKWebView!
+    static var net:String?
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    
+    override func viewWillAppear(_ animated: Bool) {
+       super.viewWillAppear(animated)
+       appDelegate.blockRotation = true
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        if webViewController.net != nil{
+            let myURL = URL(string: webViewController.net!)
+            let myRequest = URLRequest(url: myURL!)
+            web.load(myRequest)
+        }
         // Do any additional setup after loading the view.
     }
     
